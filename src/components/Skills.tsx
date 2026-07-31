@@ -6,7 +6,7 @@ import {
   SiFigma, SiGit, SiVercel, 
   SiTailwindcss, SiGooglecloud, SiSupabase
 } from 'react-icons/si';
-import { FiCpu, FiGithub, FiGlobe, FiCode, FiLayers, FiImage, FiBox, FiVideo, FiCamera } from 'react-icons/fi';
+import { FiCpu, FiGlobe, FiCode, FiImage, FiBox, FiVideo, FiCamera } from 'react-icons/fi';
 
 interface SkillItem {
   name: string;

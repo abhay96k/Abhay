@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
 import { 
   FiBookOpen, FiCode, FiCpu, 
-  FiCloud, FiSliders, FiCheckSquare, FiZap, FiLayers 
+  FiCloud, FiSliders, FiLayers 
 } from 'react-icons/fi';
 
 interface CounterProps {
