@@ -287,7 +287,7 @@ export default function Contact() {
                         className={`px-5 py-3.5 bg-neutral-50/80 border ${
                           errors.name ? 'border-red-500' : 'border-neutral-200/80'
                         } rounded-2xl text-xs md:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent text-textLight transition-all duration-300 shadow-inner`}
-                        placeholder="John Doe"
+                        placeholder="Nandini"
                       />
                       {errors.name && <span className="text-[10px] text-red-500 pl-1">{errors.name}</span>}
                     </div>
@@ -305,7 +305,7 @@ export default function Contact() {
                         className={`px-5 py-3.5 bg-neutral-50/80 border ${
                           errors.email ? 'border-red-500' : 'border-neutral-200/80'
                         } rounded-2xl text-xs md:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent text-textLight transition-all duration-300 shadow-inner`}
-                        placeholder="johndoe@example.com"
+                        placeholder="nandini@example.com"
                       />
                       {errors.email && <span className="text-[10px] text-red-500 pl-1">{errors.email}</span>}
                     </div>
