@@ -105,7 +105,7 @@ export default function About() {
         {/* Full-width introductory bio text (formatted in 2 clean lines) */}
         <div className="max-w-4xl pb-4">
           <p className="text-base sm:text-lg md:text-xl font-bold text-textLight leading-relaxed m-0">
-            Hi, I am a Computer Science Engineering student specialized in MERN stack development.<br className="hidden sm:inline" /> I focus on writing clean, modular, and optimized code, and I'm highly motivated by interactive technologies and automation.
+            Hi, I am a Computer Science Engineering student specializing in MERN Stack development.<br className="hidden sm:inline" /> I focus on writing clean, modular, optimized code and I am passionate about building interactive applications and automation solutions.
           </p>
         </div>
 
