@@ -93,21 +93,21 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-2.5 left-0 right-0 z-50 flex justify-center px-4 md:px-6 pointer-events-none"
+        className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none"
       >
-        <div className="w-full max-w-6xl flex items-center justify-between p-3 md:p-3.5 rounded-2xl bg-white/75 backdrop-blur-2xl border border-white/85 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-xl pointer-events-auto transition-all duration-300">
+        <div className="w-full max-w-6xl flex items-center justify-between px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-white/80 backdrop-blur-2xl border border-white/85 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-xl pointer-events-auto transition-all duration-300">
           
           {/* Left Side: Circular Avatar + ABHAY CHAVAN */}
           <div 
             onClick={() => handleNavClick('home')}
-            className="flex items-center space-x-3.5 pl-2 cursor-pointer"
+            className="flex items-center space-x-2.5 sm:space-x-3.5 cursor-pointer min-w-0"
           >
             <img 
               src={navbarAvatar} 
               alt="Abhay Chavan" 
-              className="w-10 h-10 rounded-full object-cover border border-borderLight shadow-sm"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border border-borderLight shadow-sm flex-shrink-0"
             />
-            <span className="font-sans font-extrabold text-base sm:text-lg tracking-wider text-textLight">
+            <span className="font-sans font-extrabold text-xs sm:text-sm md:text-base tracking-wider text-textLight truncate">
               ABHAY CHAVAN
             </span>
           </div>
@@ -141,7 +141,7 @@ export default function Navbar() {
           </div>
 
           {/* Interactive Utility Controls */}
-          <div className="flex items-center space-x-3.5 pr-2">
+          <div className="flex items-center space-x-2 sm:space-x-3.5 flex-shrink-0">
             
             {/* Resume Download Button (Desktop) */}
             <a
@@ -157,9 +157,10 @@ export default function Navbar() {
             {/* Mobile Menu Icon */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2.5 rounded-xl hover:bg-hoverLight border border-transparent hover:border-borderLight text-subLight hover:text-textLight transition-all duration-300"
+              className="md:hidden p-2 rounded-xl hover:bg-hoverLight border border-transparent hover:border-borderLight text-subLight hover:text-textLight transition-all duration-300"
+              aria-label="Toggle Navigation Menu"
             >
-              <HiMenuAlt4 className="w-6 h-6" />
+              <HiMenuAlt4 className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
           </div>
