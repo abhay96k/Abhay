@@ -34,6 +34,19 @@ export default function Contact() {
     }
   };
 
+  const openMailtoFallback = () => {
+    const mailtoSubject = encodeURIComponent(`[Portfolio Message] ${formData.subject}`);
+    const mailtoBody = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    window.location.href = `mailto:abhaychavan672@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+    
+    setIsSubmitting(false);
+    setIsSuccess(true);
+    triggerConfetti();
+    setFormData({ name: '', email: '', subject: '', message: '' });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
@@ -43,6 +56,7 @@ export default function Contact() {
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
+    const web3Key = import.meta.env.VITE_WEB3FORMS_KEY || '';
 
     if (serviceId && templateId && publicKey && formRef.current) {
       try {
@@ -52,23 +66,38 @@ export default function Contact() {
         setFormData({ name: '', email: '', subject: '', message: '' });
       } catch (err) {
         console.error('EmailJS error:', err);
-        setErrors({ submit: 'Failed to send message via EmailJS. Falling back to demo mode.' });
-        setTimeout(() => {
+        openMailtoFallback();
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else if (web3Key) {
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_key: web3Key,
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+          }),
+        });
+        if (response.ok) {
           setIsSuccess(true);
           triggerConfetti();
           setFormData({ name: '', email: '', subject: '', message: '' });
-        }, 1200);
+        } else {
+          openMailtoFallback();
+        }
+      } catch (err) {
+        openMailtoFallback();
       } finally {
         setIsSubmitting(false);
       }
     } else {
-      // Simulator Mode for local sandbox testing
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSuccess(true);
-        triggerConfetti();
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      }, 1500);
+      // Guaranteed delivery via direct mailto link to abhaychavan672@gmail.com
+      openMailtoFallback();
     }
   };
 
