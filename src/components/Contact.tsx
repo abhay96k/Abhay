@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiMail, FiMapPin, FiCheckCircle, FiSend, FiGithub, FiLinkedin, FiInstagram } from 'react-icons/fi';
 import emailjs from '@emailjs/browser';
 import confetti from 'canvas-confetti';
+import { saveMessageToSupabase } from '../utils/database';
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -52,6 +53,9 @@ export default function Contact() {
     if (!validate()) return;
 
     setIsSubmitting(true);
+
+    // Save message to Supabase Cloud Database (if VITE_SUPABASE_* keys configured)
+    await saveMessageToSupabase(formData);
 
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
