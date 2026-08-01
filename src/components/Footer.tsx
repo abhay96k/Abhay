@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="w-full py-10 px-6 md:px-12 border-t border-borderLight bg-white relative z-10 flex justify-center">
+    <footer className="w-full py-10 px-6 md:px-12 bg-white relative z-10 flex justify-center">
       <div className="w-full max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
         
         {/* Left Side: Brand name */}
