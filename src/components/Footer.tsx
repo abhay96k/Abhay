@@ -1,14 +1,8 @@
 export default function Footer() {
   return (
-    <footer className="w-full py-10 px-6 md:px-12 bg-white relative z-10 flex justify-center">
+    <footer className="w-full py-10 px-6 md:px-12 border-t border-borderLight bg-white relative z-10 flex justify-center">
       <div className="w-full max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
         
-        {/* Left Side: Brand name */}
-        <div>
-          <span className="font-sans font-extrabold text-sm tracking-wide text-textLight">
-            ABHAY CHAVAN
-          </span>
-        </div>
 
         {/* Center: Text Social Links */}
         <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-subLight">
