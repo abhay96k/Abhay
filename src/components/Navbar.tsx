@@ -93,9 +93,9 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-6 pointer-events-none"
+        className="fixed top-2.5 left-0 right-0 z-50 flex justify-center px-4 md:px-6 pointer-events-none"
       >
-        <div className="w-full max-w-6xl flex items-center justify-between p-4 md:p-4.5 rounded-2xl bg-white/75 backdrop-blur-2xl border border-white/85 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-xl pointer-events-auto transition-all duration-300">
+        <div className="w-full max-w-6xl flex items-center justify-between p-3 md:p-3.5 rounded-2xl bg-white/75 backdrop-blur-2xl border border-white/85 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-xl pointer-events-auto transition-all duration-300">
           
           {/* Left Side: Circular Avatar + ABHAY CHAVAN */}
           <div 
