@@ -127,22 +127,23 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left Side Box: Contact Information Cards */}
-          <div className="lg:col-span-5 p-8 md:p-10 rounded-[2.5rem] bg-white/80 backdrop-blur-2xl border border-white flex flex-col justify-between space-y-6 shadow-[0_15px_50px_rgba(0,0,0,0.04)] hover:shadow-2xl transition-all duration-500">
+          <div className="lg:col-span-5 p-5 sm:p-8 md:p-10 rounded-[2.5rem] bg-white/80 backdrop-blur-2xl border border-white flex flex-col justify-between space-y-6 shadow-[0_15px_50px_rgba(0,0,0,0.04)] hover:shadow-2xl transition-all duration-500 min-w-0">
             
             {/* Info Cards Container */}
-            <div className="space-y-4 flex-1 flex flex-col justify-center">
+            <div className="space-y-3.5 sm:space-y-4 flex-1 flex flex-col justify-center min-w-0">
               
               {/* Email */}
-              <div className="flex items-center space-x-4 p-4 rounded-2xl bg-neutral-50/80 border border-neutral-200/60 hover:bg-white hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer">
-                <div className="p-3 bg-white rounded-xl text-accent border border-neutral-200/50 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center">
+              <div className="flex items-center space-x-3 sm:space-x-4 p-3.5 sm:p-4 rounded-2xl bg-neutral-50/80 border border-neutral-200/60 hover:bg-white hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer min-w-0">
+                <div className="p-2.5 sm:p-3 bg-white rounded-xl text-accent border border-neutral-200/50 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center flex-shrink-0">
                   <FiMail className="w-4 h-4" />
                 </div>
-                <div className="flex flex-col space-y-0.5">
+                <div className="flex flex-col space-y-0.5 min-w-0 flex-1">
                   <span className="text-[9px] uppercase tracking-widest text-accent font-extrabold">Email Direct</span>
                   <a 
                     href="mailto:abhaychavan672@gmail.com" 
-                    className="text-xs sm:text-sm font-sans font-black text-textLight group-hover:text-accent transition-colors duration-300"
+                    className="text-[11px] sm:text-xs md:text-sm font-sans font-black text-textLight group-hover:text-accent transition-colors duration-300 truncate block"
                     data-cursor-text="mail"
+                    title="abhaychavan672@gmail.com"
                   >
                     abhaychavan672@gmail.com
                   </a>
@@ -150,18 +151,19 @@ export default function Contact() {
               </div>
 
               {/* GitHub */}
-              <div className="flex items-center space-x-4 p-4 rounded-2xl bg-neutral-50/80 border border-neutral-200/60 hover:bg-white hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer">
-                <div className="p-3 bg-white rounded-xl text-accent border border-neutral-200/50 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center">
+              <div className="flex items-center space-x-3 sm:space-x-4 p-3.5 sm:p-4 rounded-2xl bg-neutral-50/80 border border-neutral-200/60 hover:bg-white hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer min-w-0">
+                <div className="p-2.5 sm:p-3 bg-white rounded-xl text-accent border border-neutral-200/50 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center flex-shrink-0">
                   <FiGithub className="w-4 h-4" />
                 </div>
-                <div className="flex flex-col space-y-0.5">
+                <div className="flex flex-col space-y-0.5 min-w-0 flex-1">
                   <span className="text-[9px] uppercase tracking-widest text-accent font-extrabold">GitHub</span>
                   <a 
                     href="https://github.com/abhay96k" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs sm:text-sm font-sans font-black text-textLight group-hover:text-accent transition-colors duration-300"
+                    className="text-[11px] sm:text-xs md:text-sm font-sans font-black text-textLight group-hover:text-accent transition-colors duration-300 truncate block"
                     data-cursor-text="github"
+                    title="github.com/abhay96k"
                   >
                     github.com/abhay96k
                   </a>
@@ -169,18 +171,19 @@ export default function Contact() {
               </div>
 
               {/* LinkedIn */}
-              <div className="flex items-center space-x-4 p-4 rounded-2xl bg-neutral-50/80 border border-neutral-200/60 hover:bg-white hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer">
-                <div className="p-3 bg-white rounded-xl text-accent border border-neutral-200/50 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center">
+              <div className="flex items-center space-x-3 sm:space-x-4 p-3.5 sm:p-4 rounded-2xl bg-neutral-50/80 border border-neutral-200/60 hover:bg-white hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer min-w-0">
+                <div className="p-2.5 sm:p-3 bg-white rounded-xl text-accent border border-neutral-200/50 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center flex-shrink-0">
                   <FiLinkedin className="w-4 h-4" />
                 </div>
-                <div className="flex flex-col space-y-0.5">
+                <div className="flex flex-col space-y-0.5 min-w-0 flex-1">
                   <span className="text-[9px] uppercase tracking-widest text-accent font-extrabold">LinkedIn</span>
                   <a 
                     href="https://www.linkedin.com/in/abhay-chavan96" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs sm:text-sm font-sans font-black text-textLight group-hover:text-accent transition-colors duration-300"
+                    className="text-[11px] sm:text-xs md:text-sm font-sans font-black text-textLight group-hover:text-accent transition-colors duration-300 truncate block"
                     data-cursor-text="linkedin"
+                    title="linkedin.com/in/abhay-chavan96"
                   >
                     linkedin.com/in/abhay-chavan96
                   </a>
@@ -188,18 +191,19 @@ export default function Contact() {
               </div>
 
               {/* Instagram */}
-              <div className="flex items-center space-x-4 p-4 rounded-2xl bg-neutral-50/80 border border-neutral-200/60 hover:bg-white hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer">
-                <div className="p-3 bg-white rounded-xl text-accent border border-neutral-200/50 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center">
+              <div className="flex items-center space-x-3 sm:space-x-4 p-3.5 sm:p-4 rounded-2xl bg-neutral-50/80 border border-neutral-200/60 hover:bg-white hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer min-w-0">
+                <div className="p-2.5 sm:p-3 bg-white rounded-xl text-accent border border-neutral-200/50 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center flex-shrink-0">
                   <FiInstagram className="w-4 h-4" />
                 </div>
-                <div className="flex flex-col space-y-0.5">
+                <div className="flex flex-col space-y-0.5 min-w-0 flex-1">
                   <span className="text-[9px] uppercase tracking-widest text-accent font-extrabold">Instagram</span>
                   <a 
                     href="https://www.instagram.com/abhay_chavan.96k" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs sm:text-sm font-sans font-black text-textLight group-hover:text-accent transition-colors duration-300"
+                    className="text-[11px] sm:text-xs md:text-sm font-sans font-black text-textLight group-hover:text-accent transition-colors duration-300 truncate block"
                     data-cursor-text="instagram"
+                    title="instagram.com/abhay_chavan.96k"
                   >
                     instagram.com/abhay_chavan.96k
                   </a>
@@ -207,13 +211,13 @@ export default function Contact() {
               </div>
 
               {/* Location */}
-              <div className="flex items-center space-x-4 p-4 rounded-2xl bg-neutral-50/80 border border-neutral-200/60 hover:bg-white hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer">
-                <div className="p-3 bg-white rounded-xl text-accent border border-neutral-200/50 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center">
+              <div className="flex items-center space-x-3 sm:space-x-4 p-3.5 sm:p-4 rounded-2xl bg-neutral-50/80 border border-neutral-200/60 hover:bg-white hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer min-w-0">
+                <div className="p-2.5 sm:p-3 bg-white rounded-xl text-accent border border-neutral-200/50 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center flex-shrink-0">
                   <FiMapPin className="w-4 h-4" />
                 </div>
-                <div className="flex flex-col space-y-0.5">
+                <div className="flex flex-col space-y-0.5 min-w-0 flex-1">
                   <span className="text-[9px] uppercase tracking-widest text-accent font-extrabold">Location</span>
-                  <span className="text-xs sm:text-sm font-sans font-black text-textLight">
+                  <span className="text-[11px] sm:text-xs md:text-sm font-sans font-black text-textLight truncate block">
                     Belgavi, Karnataka, India
                   </span>
                 </div>
@@ -224,7 +228,7 @@ export default function Contact() {
 
           {/* Right Side: High-End Glossy Glass Contact Form Module */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-12 rounded-[2.5rem] bg-white/80 backdrop-blur-2xl border border-white shadow-[0_15px_50px_rgba(0,0,0,0.04)] relative overflow-hidden hover:shadow-2xl transition-all duration-500">
+            <div className="p-5 sm:p-10 md:p-12 rounded-[2.5rem] bg-white/80 backdrop-blur-2xl border border-white shadow-[0_15px_50px_rgba(0,0,0,0.04)] relative overflow-hidden hover:shadow-2xl transition-all duration-500">
               
               <AnimatePresence mode="wait">
                 {!isSuccess ? (
