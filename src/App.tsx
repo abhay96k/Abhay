@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Lenis from 'lenis';
 
 // Core Components
 import Navbar from './components/Navbar';
 import Background3D from './components/Background3D';
+import AdminDashboard from './components/AdminDashboard';
 
 // Section Components
 import Hero from './components/Hero';
@@ -14,12 +15,26 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 export default function App() {
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
 
-  // Sync light class on body element
+  // Sync light class on body element & check URL hash for #admin
   useEffect(() => {
     const body = document.body;
     body.classList.remove('dark');
     localStorage.setItem('abhay-theme', 'light');
+
+    if (window.location.hash === '#admin') {
+      setIsAdminOpen(true);
+    }
+
+    const handleHashChange = () => {
+      if (window.location.hash === '#admin') {
+        setIsAdminOpen(true);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   // Initialize Lenis smooth scroll
@@ -54,18 +69,28 @@ export default function App() {
       {/* Floating Sticky Glassmorphic Navbar */}
       <Navbar />
 
-          {/* Scrolling Content Modules */}
-          <main className="w-full relative z-10 flex flex-col items-center">
-            <Hero />
-            <About />
-            <Skills />
-            <Projects />
-            <Contact />
-          </main>
+      {/* Scrolling Content Modules */}
+      <main className="w-full relative z-10 flex flex-col items-center">
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
 
-          {/* Minimal Footer */}
-          <Footer />
+      {/* Minimal Footer */}
+      <Footer onOpenAdmin={() => setIsAdminOpen(true)} />
 
-        </div>
+      {/* Secure Admin Messages Dashboard */}
+      <AdminDashboard 
+        isOpen={isAdminOpen} 
+        onClose={() => {
+          setIsAdminOpen(false);
+          if (window.location.hash === '#admin') {
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+          }
+        }} 
+      />
+    </div>
   );
 }

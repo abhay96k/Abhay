@@ -7,6 +7,12 @@ export interface ContactMessage {
   message: string;
 }
 
+export interface SavedMessage extends ContactMessage {
+  id: string;
+  created_at: string;
+  status: 'read' | 'unread';
+}
+
 const DEFAULT_SUPABASE_URL = 'https://dcupywuwyewseskrixcx.supabase.co';
 const DEFAULT_SUPABASE_KEY = 'sb_publishable_aQ9ZynADnxtXuIatPQwsVw_sdiJu4qW';
 
@@ -23,7 +29,6 @@ export const supabase = (supabaseUrl && supabaseAnonKey)
  * Returns true if successful, false otherwise.
  */
 export async function saveMessageToSupabase(data: ContactMessage): Promise<boolean> {
-  // Option A: Official SDK client
   if (supabase) {
     try {
       const { error } = await supabase
@@ -46,7 +51,6 @@ export async function saveMessageToSupabase(data: ContactMessage): Promise<boole
     }
   }
 
-  // Option B: Direct REST API fetch fallback if URL/Key set
   if (supabaseUrl && supabaseAnonKey) {
     try {
       const res = await fetch(`${supabaseUrl}/rest/v1/messages`, {
@@ -70,6 +74,117 @@ export async function saveMessageToSupabase(data: ContactMessage): Promise<boole
       return res.ok;
     } catch (err) {
       console.error('Supabase REST Fetch Error:', err);
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Fetches all saved messages from Supabase (`messages` table).
+ */
+export async function fetchMessagesFromSupabase(): Promise<SavedMessage[]> {
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('messages')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data) return data as SavedMessage[];
+      console.error('Supabase Fetch Error:', error);
+    } catch (err) {
+      console.error('Supabase Fetch Exception:', err);
+    }
+  }
+
+  if (supabaseUrl && supabaseAnonKey) {
+    try {
+      const res = await fetch(`${supabaseUrl}/rest/v1/messages?select=*&order=created_at.desc`, {
+        headers: {
+          'apikey': supabaseAnonKey,
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+        },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        return data as SavedMessage[];
+      }
+    } catch (err) {
+      console.error('Supabase REST Fetch Error:', err);
+    }
+  }
+
+  return [];
+}
+
+/**
+ * Deletes a message by ID from Supabase (`messages` table).
+ */
+export async function deleteMessageFromSupabase(id: string): Promise<boolean> {
+  if (supabase) {
+    try {
+      const { error } = await supabase
+        .from('messages')
+        .delete()
+        .eq('id', id);
+
+      if (!error) return true;
+    } catch (err) {
+      console.error('Supabase Delete Error:', err);
+    }
+  }
+
+  if (supabaseUrl && supabaseAnonKey) {
+    try {
+      const res = await fetch(`${supabaseUrl}/rest/v1/messages?id=eq.${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+        headers: {
+          'apikey': supabaseAnonKey,
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+        },
+      });
+      return res.ok;
+    } catch (err) {
+      console.error('Supabase REST Delete Error:', err);
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Updates message status ('read' or 'unread') in Supabase.
+ */
+export async function updateMessageStatusInSupabase(id: string, status: 'read' | 'unread'): Promise<boolean> {
+  if (supabase) {
+    try {
+      const { error } = await supabase
+        .from('messages')
+        .update({ status })
+        .eq('id', id);
+
+      if (!error) return true;
+    } catch (err) {
+      console.error('Supabase Update Error:', err);
+    }
+  }
+
+  if (supabaseUrl && supabaseAnonKey) {
+    try {
+      const res = await fetch(`${supabaseUrl}/rest/v1/messages?id=eq.${encodeURIComponent(id)}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': supabaseAnonKey,
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+        },
+        body: JSON.stringify({ status }),
+      });
+      return res.ok;
+    } catch (err) {
+      console.error('Supabase REST Update Error:', err);
     }
   }
 
