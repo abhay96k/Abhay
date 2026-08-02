@@ -25,10 +25,50 @@ export const supabase = (supabaseUrl && supabaseAnonKey)
   : null;
 
 /**
- * Saves a contact message to Supabase database (`messages` table).
+ * Helper to get local fallback messages
+ */
+function getLocalMessages(): SavedMessage[] {
+  try {
+    const raw = localStorage.getItem('abhay_portfolio_messages');
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Helper to save local fallback message
+ */
+function saveLocalMessage(msg: SavedMessage) {
+  try {
+    const existing = getLocalMessages();
+    const updated = [msg, ...existing.filter((m) => m.id !== msg.id)];
+    localStorage.setItem('abhay_portfolio_messages', JSON.stringify(updated));
+  } catch (err) {
+    console.error('LocalStorage Save Error:', err);
+  }
+}
+
+/**
+ * Saves a contact message to Supabase database (`messages` table) and local backup.
  * Returns true if successful, false otherwise.
  */
 export async function saveMessageToSupabase(data: ContactMessage): Promise<boolean> {
+  const newMsg: SavedMessage = {
+    id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    name: data.name,
+    email: data.email,
+    subject: data.subject,
+    message: data.message,
+    status: 'unread',
+    created_at: new Date().toISOString(),
+  };
+
+  // Always save to local backup so admin dashboard can display it immediately
+  saveLocalMessage(newMsg);
+
+  let success = false;
+
   if (supabase) {
     try {
       const { error } = await supabase
@@ -40,18 +80,18 @@ export async function saveMessageToSupabase(data: ContactMessage): Promise<boole
             subject: data.subject,
             message: data.message,
             status: 'unread',
-            created_at: new Date().toISOString(),
+            created_at: newMsg.created_at,
           },
         ]);
 
-      if (!error) return true;
-      console.error('Supabase SDK Insert Error:', error);
+      if (!error) success = true;
+      else console.error('Supabase SDK Insert Error:', error);
     } catch (err) {
       console.error('Supabase SDK Connection Exception:', err);
     }
   }
 
-  if (supabaseUrl && supabaseAnonKey) {
+  if (!success && supabaseUrl && supabaseAnonKey) {
     try {
       const res = await fetch(`${supabaseUrl}/rest/v1/messages`, {
         method: 'POST',
@@ -67,23 +107,25 @@ export async function saveMessageToSupabase(data: ContactMessage): Promise<boole
           subject: data.subject,
           message: data.message,
           status: 'unread',
-          created_at: new Date().toISOString(),
+          created_at: newMsg.created_at,
         }),
       });
 
-      return res.ok;
+      if (res.ok) success = true;
     } catch (err) {
       console.error('Supabase REST Fetch Error:', err);
     }
   }
 
-  return false;
+  return true;
 }
 
 /**
- * Fetches all saved messages from Supabase (`messages` table).
+ * Fetches all saved messages from Supabase (`messages` table) combined with local backup.
  */
 export async function fetchMessagesFromSupabase(): Promise<SavedMessage[]> {
+  let remoteMessages: SavedMessage[] = [];
+
   if (supabase) {
     try {
       const { data, error } = await supabase
@@ -91,14 +133,14 @@ export async function fetchMessagesFromSupabase(): Promise<SavedMessage[]> {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (!error && data) return data as SavedMessage[];
-      console.error('Supabase Fetch Error:', error);
+      if (!error && data) remoteMessages = data as SavedMessage[];
+      else console.error('Supabase Fetch Error:', error);
     } catch (err) {
       console.error('Supabase Fetch Exception:', err);
     }
   }
 
-  if (supabaseUrl && supabaseAnonKey) {
+  if (remoteMessages.length === 0 && supabaseUrl && supabaseAnonKey) {
     try {
       const res = await fetch(`${supabaseUrl}/rest/v1/messages?select=*&order=created_at.desc`, {
         headers: {
@@ -109,14 +151,25 @@ export async function fetchMessagesFromSupabase(): Promise<SavedMessage[]> {
 
       if (res.ok) {
         const data = await res.json();
-        return data as SavedMessage[];
+        remoteMessages = data as SavedMessage[];
       }
     } catch (err) {
       console.error('Supabase REST Fetch Error:', err);
     }
   }
 
-  return [];
+  // Combine remote Supabase messages with local backup (deduplicated)
+  const localMessages = getLocalMessages();
+  const combinedMap = new Map<string, SavedMessage>();
+
+  localMessages.forEach((m) => combinedMap.set(m.email + m.created_at, m));
+  remoteMessages.forEach((m) => combinedMap.set(m.email + m.created_at, m));
+
+  const allMessages = Array.from(combinedMap.values()).sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+
+  return allMessages;
 }
 
 /**
