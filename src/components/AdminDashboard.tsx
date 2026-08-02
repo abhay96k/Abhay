@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FiLock, FiMail, FiTrash2, FiCheckCircle, FiRefreshCw, 
-  FiSearch, FiLogOut, FiX, FiCornerUpLeft, FiUser, FiCalendar, FiInbox, FiEye
+  FiSearch, FiLogOut, FiX, FiCornerUpLeft, FiUser, FiCalendar, FiInbox, FiEye,
+  FiCopy, FiExternalLink, FiCheck
 } from 'react-icons/fi';
 import type { SavedMessage } from '../utils/database';
 import { 
@@ -25,6 +26,8 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
   const [searchQuery, setSearchQuery] = useState('');
   const [filterTab, setFilterTab] = useState<'all' | 'unread' | 'read'>('all');
   const [selectedMessage, setSelectedMessage] = useState<SavedMessage | null>(null);
+  const [replyText, setReplyText] = useState('');
+  const [copied, setCopied] = useState(false);
 
   const ADMIN_PASSCODE = import.meta.env.VITE_ADMIN_PASSCODE || 'abhay@2026';
 
@@ -449,16 +452,66 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                         {selectedMessage.message}
                       </p>
                     </div>
+
+                    {/* Interactive Reply Section */}
+                    <div className="p-6 bg-neutral-50/80 border border-neutral-200/80 rounded-2xl space-y-4 shadow-sm">
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <span className="text-[10px] uppercase tracking-widest font-black text-accent">
+                          Quick Reply to {selectedMessage.name}
+                        </span>
+                        
+                        <button
+                          onClick={() => {
+                            navigator.clipboard.writeText(selectedMessage.email);
+                            setCopied(true);
+                            setTimeout(() => setCopied(false), 2000);
+                          }}
+                          className="px-2.5 py-1 bg-white border border-neutral-200 rounded-lg text-xs font-bold text-subLight hover:text-textLight transition-colors flex items-center space-x-1.5 cursor-pointer"
+                        >
+                          {copied ? <FiCheck className="w-3.5 h-3.5 text-green-600" /> : <FiCopy className="w-3.5 h-3.5" />}
+                          <span>{copied ? 'Email Copied!' : `Copy ${selectedMessage.email}`}</span>
+                        </button>
+                      </div>
+
+                      <textarea
+                        value={replyText}
+                        onChange={(e) => setReplyText(e.target.value)}
+                        rows={4}
+                        placeholder={`Type your reply to ${selectedMessage.name} here...`}
+                        className="w-full p-4 bg-white border border-neutral-200 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent text-textLight resize-none shadow-inner"
+                      />
+
+                      <div className="flex flex-wrap items-center justify-end gap-3 pt-1">
+                        {/* Open Direct in Web Gmail */}
+                        <a
+                          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(selectedMessage.email)}&su=${encodeURIComponent(`Re: ${selectedMessage.subject}`)}&body=${encodeURIComponent(replyText ? replyText : `\n\n--- Original Message from ${selectedMessage.name} ---\n${selectedMessage.message}`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center space-x-2"
+                        >
+                          <FiExternalLink className="w-4 h-4" />
+                          <span>Open in Web Gmail</span>
+                        </a>
+
+                        {/* Open in Default Mail App */}
+                        <a
+                          href={`mailto:${selectedMessage.email}?subject=${encodeURIComponent(`Re: ${selectedMessage.subject}`)}&body=${encodeURIComponent(replyText ? replyText : `\n\n--- Original Message from ${selectedMessage.name} ---\n${selectedMessage.message}`)}`}
+                          className="px-5 py-2.5 bg-accent hover:bg-amber-600 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center space-x-2"
+                        >
+                          <FiMail className="w-4 h-4" />
+                          <span>Open Mail App</span>
+                        </a>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Footer Action */}
-                  <div className="pt-6 border-t border-neutral-100 flex justify-end">
+                  <div className="pt-4 border-t border-neutral-100 flex justify-end">
                     <button
-                      onClick={() => handleReply(selectedMessage)}
-                      className="px-6 py-3 bg-accent hover:bg-amber-600 text-white font-black text-xs uppercase tracking-wider rounded-xl transition-colors shadow-md flex items-center space-x-2"
+                      onClick={() => setSelectedMessage(null)}
+                      className="px-6 py-2.5 bg-neutral-100 hover:bg-neutral-200 text-textLight font-extrabold text-xs uppercase tracking-wider rounded-xl transition-colors"
                     >
-                      <FiMail className="w-4 h-4" />
-                      <span>Reply via Email ({selectedMessage.email})</span>
+                      Close Reader
                     </button>
                   </div>
                 </motion.div>
