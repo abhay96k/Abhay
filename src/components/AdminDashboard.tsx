@@ -29,7 +29,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
   const [replyText, setReplyText] = useState('');
   const [copied, setCopied] = useState(false);
 
-  const ADMIN_PASSCODE = import.meta.env.VITE_ADMIN_PASSCODE || 'abhay@2026';
+  const ADMIN_PASSCODE = import.meta.env.VITE_ADMIN_PASSCODE || 'G@bhay143';
 
   // Check existing session on mount
   useEffect(() => {
