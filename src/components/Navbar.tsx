@@ -4,7 +4,11 @@ import { HiMenuAlt4, HiX } from 'react-icons/hi';
 import { FiDownload } from 'react-icons/fi';
 import navbarAvatar from '../assets/navbar-avatar.png';
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenAdmin?: () => void;
+}
+
+export default function Navbar({ onOpenAdmin }: NavbarProps) {
   const [activeSection, setActiveSection] = useState('home');
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -100,7 +104,8 @@ export default function Navbar() {
           {/* Left Side: Circular Avatar + ABHAY CHAVAN */}
           <div 
             onClick={() => handleNavClick('home')}
-            className="flex items-center space-x-2.5 sm:space-x-3.5 cursor-pointer min-w-0"
+            onDoubleClick={() => onOpenAdmin?.()}
+            className="flex items-center space-x-2.5 sm:space-x-3.5 cursor-pointer min-w-0 select-none"
           >
             <img 
               src={navbarAvatar} 

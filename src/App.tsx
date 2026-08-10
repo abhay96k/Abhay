@@ -67,7 +67,7 @@ export default function App() {
       <Background3D darkMode={false} />
 
       {/* Floating Sticky Glassmorphic Navbar */}
-      <Navbar />
+      <Navbar onOpenAdmin={() => setIsAdminOpen(true)} />
 
       {/* Scrolling Content Modules */}
       <main className="w-full relative z-10 flex flex-col items-center">
@@ -79,7 +79,7 @@ export default function App() {
       </main>
 
       {/* Minimal Footer */}
-      <Footer onOpenAdmin={() => setIsAdminOpen(true)} />
+      <Footer />
 
       {/* Secure Admin Messages Dashboard */}
       <AdminDashboard 

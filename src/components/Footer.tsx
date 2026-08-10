@@ -1,8 +1,4 @@
-interface FooterProps {
-  onOpenAdmin?: () => void;
-}
-
-export default function Footer({ onOpenAdmin }: FooterProps) {
+export default function Footer() {
   return (
     <footer className="w-full py-6 sm:py-8 px-4 sm:px-8 border-t border-borderLight bg-white relative z-10 flex justify-center">
       <div className="w-full max-w-6xl flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-center">
@@ -36,14 +32,6 @@ export default function Footer({ onOpenAdmin }: FooterProps) {
           >
             Instagram
           </a>
-          {onOpenAdmin && (
-            <button
-              onClick={onOpenAdmin}
-              className="text-subLight hover:text-accent font-extrabold transition-colors duration-300 flex items-center space-x-1 cursor-pointer"
-            >
-              <span>🔒 Admin</span>
-            </button>
-          )}
         </div>
 
         {/* Right Side: Copyright text */}
