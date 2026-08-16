@@ -13,6 +13,7 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const navItems = [
     { id: 'home', label: 'Home' },
@@ -42,6 +43,21 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
     window.addEventListener('scroll', controlNavbar);
     return () => window.removeEventListener('scroll', controlNavbar);
   }, [lastScrollY]);
+
+  // Track page scroll percentage for animated progress line
+  useEffect(() => {
+    const handleScrollProgress = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
+        setScrollProgress(progress);
+      }
+    };
+
+    window.addEventListener('scroll', handleScrollProgress);
+    handleScrollProgress();
+    return () => window.removeEventListener('scroll', handleScrollProgress);
+  }, []);
 
   // Setup intersection observer to determine active section
   useEffect(() => {
@@ -99,7 +115,7 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none"
       >
-        <div className="w-full max-w-6xl flex items-center justify-between px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-white/80 backdrop-blur-2xl border border-white/85 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-xl pointer-events-auto transition-all duration-300">
+        <div className="w-full max-w-6xl flex items-center justify-between px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-white/80 backdrop-blur-2xl border border-white/85 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-xl pointer-events-auto transition-all duration-300 relative overflow-hidden">
           
           {/* Left Side: Circular Avatar + ABHAY CHAVAN */}
           <div 
@@ -136,7 +152,7 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
                   {isActive && (
                     <motion.span
                       layoutId="activeUnderline"
-                      className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-black rounded-full"
+                      className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-amber-500 to-accent rounded-full shadow-[0_2px_8px_rgba(217,119,6,0.5)]"
                       transition={{ type: 'spring', damping: 25, stiffness: 220 }}
                     />
                   )}
@@ -169,6 +185,23 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
             </button>
 
           </div>
+
+          {/* Animated Line Moving from Left to Right at Bottom of Navigation Bar */}
+          <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-neutral-200/50 overflow-hidden pointer-events-none rounded-b-2xl">
+            {/* Scroll Progress Line (Expands Left to Right based on scroll position) */}
+            <motion.div 
+              className="h-full bg-gradient-to-r from-amber-500 via-accent to-amber-600 shadow-[0_0_12px_rgba(217,119,6,0.8)]"
+              style={{ width: `${scrollProgress}%` }}
+              transition={{ ease: 'easeOut', duration: 0.1 }}
+            />
+            {/* Continuous Luminous Light Beam moving from Left to Right */}
+            <motion.div 
+              className="absolute top-0 bottom-0 w-1/3 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-90 filter blur-[0.5px]"
+              animate={{ x: ['-100%', '400%'] }}
+              transition={{ repeat: Infinity, duration: 2.8, ease: 'linear' }}
+            />
+          </div>
+
         </div>
       </motion.nav>
 
