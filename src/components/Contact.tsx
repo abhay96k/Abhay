@@ -117,10 +117,10 @@ export default function Contact() {
   return (
     <motion.section 
       id="contact" 
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       className="min-h-screen w-full py-28 px-6 md:px-12 flex justify-center items-center relative border-t border-borderLight"
     >
       <div className="w-full max-w-5xl flex flex-col space-y-16">
@@ -129,8 +129,8 @@ export default function Contact() {
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col space-y-4"
         >
           <span className="text-sm sm:text-base uppercase tracking-[0.3em] font-extrabold text-accent">05 / Connection</span>
@@ -140,27 +140,39 @@ export default function Contact() {
           <motion.div 
             initial={{ width: 0 }} 
             whileInView={{ width: 64 }} 
-            viewport={{ once: false }} 
+            viewport={{ once: true }} 
             transition={{ duration: 0.8, delay: 0.25 }} 
             className="h-[2px] bg-accent rounded-full" 
           />
         </motion.div>
 
         {/* Full-width introductory text (Straight Line) */}
-        <div className="max-w-4xl space-y-3 pb-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl space-y-3 pb-2"
+        >
           <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-4xl text-textLight leading-tight m-0">
             Let’s create something remarkable together.
           </h3>
           <p className="text-sm sm:text-base text-subLight leading-relaxed font-medium m-0">
             Whether you want to build a MERN application, configure spatial maps, hire a developer intern, or simply chat about software engineering—feel free to drop a message.
           </p>
-        </div>
+        </motion.div>
 
         {/* Split Grid: Two Boxes Below */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left Side Box: Contact Information Cards */}
-          <div className="lg:col-span-5 p-5 sm:p-8 md:p-10 rounded-[2.5rem] bg-white/80 backdrop-blur-2xl border border-white flex flex-col justify-between space-y-6 shadow-[0_15px_50px_rgba(0,0,0,0.04)] hover:shadow-2xl transition-all duration-500 min-w-0">
+          <motion.div 
+            initial={{ opacity: 0, x: -30, y: 20 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 p-5 sm:p-8 md:p-10 rounded-[2.5rem] bg-white/80 backdrop-blur-2xl border border-white flex flex-col justify-between space-y-6 shadow-[0_15px_50px_rgba(0,0,0,0.04)] hover:shadow-2xl transition-all duration-500 min-w-0"
+          >
             
             {/* Info Cards Container */}
             <div className="space-y-3.5 sm:space-y-4 flex-1 flex flex-col justify-center min-w-0">
@@ -257,10 +269,16 @@ export default function Contact() {
               </div>
 
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Side: High-End Glossy Glass Contact Form Module */}
-          <div className="lg:col-span-7">
+          <motion.div 
+            initial={{ opacity: 0, x: 30, y: 20 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7"
+          >
             <div className="p-5 sm:p-10 md:p-12 rounded-[2.5rem] bg-white/80 backdrop-blur-2xl border border-white shadow-[0_15px_50px_rgba(0,0,0,0.04)] relative overflow-hidden hover:shadow-2xl transition-all duration-500">
               
               <AnimatePresence mode="wait">
@@ -395,7 +413,7 @@ export default function Contact() {
               </AnimatePresence>
 
             </div>
-          </div>
+          </motion.div>
 
         </div>
 

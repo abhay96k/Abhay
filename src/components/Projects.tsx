@@ -61,10 +61,10 @@ export default function Projects() {
   return (
     <motion.section 
       id="projects" 
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       className="min-h-screen w-full py-32 px-6 md:px-12 flex justify-center items-center relative border-t border-borderLight"
     >
       <div className="w-full max-w-5xl flex flex-col space-y-16">
@@ -73,8 +73,8 @@ export default function Projects() {
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col space-y-4"
         >
           <span className="text-sm sm:text-base uppercase tracking-[0.3em] font-extrabold text-accent">03 / Case Studies</span>
@@ -84,7 +84,7 @@ export default function Projects() {
           <motion.div 
             initial={{ width: 0 }} 
             whileInView={{ width: 64 }} 
-            viewport={{ once: false }} 
+            viewport={{ once: true }} 
             transition={{ duration: 0.8, delay: 0.25 }} 
             className="h-[2px] bg-accent rounded-full" 
           />
@@ -96,11 +96,11 @@ export default function Projects() {
             return (
               <motion.div 
                 key={project.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 60, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 whileHover={{ y: -6, scale: 1.008 }}
-                viewport={{ once: false, margin: "-100px" }}
-                transition={{ duration: 0.7, delay: pIdx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.85, delay: pIdx * 0.15, ease: [0.16, 1, 0.3, 1] }}
                 className="p-8 md:p-12 rounded-[2.5rem] bg-white/70 backdrop-blur-2xl border border-white/80 flex flex-col space-y-8 hover:border-accent/50 hover:bg-white/85 shadow-[0_12px_40px_rgba(0,0,0,0.05)] hover:shadow-2xl transition-all duration-300 cursor-pointer"
               >
                 {/* Project Header (Inside the Box) */}

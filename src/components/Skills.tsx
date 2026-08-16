@@ -130,10 +130,10 @@ export default function Skills() {
   return (
     <motion.section 
       id="skills" 
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       className="min-h-screen w-full py-32 px-6 md:px-12 flex justify-center items-center relative border-t border-borderLight"
     >
       <div className="w-full max-w-6xl flex flex-col space-y-16">
@@ -142,8 +142,8 @@ export default function Skills() {
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
         >
           <div className="flex flex-col space-y-4">
@@ -154,7 +154,7 @@ export default function Skills() {
             <motion.div 
               initial={{ width: 0 }} 
               whileInView={{ width: 64 }} 
-              viewport={{ once: false }} 
+              viewport={{ once: true }} 
               transition={{ duration: 0.8, delay: 0.25 }} 
               className="h-[2px] bg-accent rounded-full" 
             />
@@ -170,10 +170,10 @@ export default function Skills() {
           {skillCategories.map((category, catIdx) => (
             <motion.div
               key={catIdx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: catIdx * 0.15 }}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.7, delay: catIdx * 0.12, ease: [0.16, 1, 0.3, 1] }}
               className="p-6 rounded-3xl bg-white/70 backdrop-blur-2xl border border-white/80 flex flex-col space-y-6 shadow-[0_10px_35px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300"
             >
               <h3 className="font-sans font-extrabold text-lg text-textLight border-b border-borderLight pb-3 m-0">

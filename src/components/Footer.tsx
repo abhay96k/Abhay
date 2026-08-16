@@ -1,6 +1,14 @@
+import { motion } from 'framer-motion';
+
 export default function Footer() {
   return (
-    <footer className="w-full py-6 sm:py-8 px-4 sm:px-8 border-t border-borderLight bg-white relative z-10 flex justify-center">
+    <motion.footer 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full py-6 sm:py-8 px-4 sm:px-8 border-t border-borderLight bg-white relative z-10 flex justify-center"
+    >
       <div className="w-full max-w-6xl flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-center">
         
         {/* Social Links */}
@@ -42,6 +50,6 @@ export default function Footer() {
         </div>
 
       </div>
-    </footer>
+    </motion.footer>
   );
 }

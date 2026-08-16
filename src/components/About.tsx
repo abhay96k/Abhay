@@ -73,10 +73,10 @@ export default function About() {
     <motion.section 
       id="about" 
       ref={containerRef}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       className="min-h-screen w-full py-32 px-6 md:px-12 flex justify-center items-center relative border-t border-borderLight"
     >
       <div className="w-full max-w-5xl flex flex-col space-y-16">
@@ -85,8 +85,8 @@ export default function About() {
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col space-y-4"
         >
           <span className="text-sm sm:text-base uppercase tracking-[0.3em] font-extrabold text-accent">01 / Profile</span>
@@ -96,18 +96,24 @@ export default function About() {
           <motion.div 
             initial={{ width: 0 }} 
             whileInView={{ width: 64 }} 
-            viewport={{ once: false }} 
+            viewport={{ once: true }} 
             transition={{ duration: 0.8, delay: 0.25 }} 
             className="h-[2px] bg-accent rounded-full" 
           />
         </motion.div>
 
-        {/* Full-width introductory bio text (formatted in 2 clean lines) */}
-        <div className="max-w-4xl pb-4">
+        {/* Full-width introductory bio text */}
+        <motion.div 
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl pb-4"
+        >
           <p className="text-base sm:text-lg md:text-xl font-bold text-textLight leading-relaxed m-0">
             Hi, I am a Computer Science Engineering student specializing in MERN Stack development.<br className="hidden sm:inline" /> I focus on writing clean, modular, optimized code and I am passionate about building interactive applications and automation solutions.
           </p>
-        </div>
+        </motion.div>
 
         {/* Elegant two-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -121,6 +127,10 @@ export default function About() {
               {attributes.map((attr, idx) => (
                 <motion.div
                   key={idx}
+                  initial={{ opacity: 0, y: 25, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                   whileHover={{ y: -3, scale: 1.03 }}
                   className="px-6 py-3.5 sm:px-7 sm:py-4 bg-white/75 backdrop-blur-xl hover:bg-white border border-white/90 hover:border-accent/50 rounded-2xl flex items-center space-x-3.5 transition-all duration-300 shadow-[0_6px_24px_rgba(0,0,0,0.05)] hover:shadow-lg cursor-default"
                 >
@@ -143,10 +153,10 @@ export default function About() {
               {timelineItems.map((item, idx) => (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: idx * 0.1 }}
+                  initial={{ opacity: 0, x: 30, y: 20 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: idx * 0.15 }}
                   className="relative group"
                 >
                   {/* Timeline Dot Icon indicator */}
@@ -182,35 +192,28 @@ export default function About() {
 
         </div>
 
-        {/* Statistics Grid */}
+        {/* Statistics Grid with Staggered Scroll Entrance */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10">
-          <div className="p-6 rounded-3xl border border-borderLight bg-white flex flex-col items-center justify-center text-center space-y-2 hover:border-accent/30 transition-all duration-300 shadow-sm">
-            <AnimatedCounter value={2} suffix="+" />
-            <span className="text-[9px] uppercase tracking-widest text-subLight font-bold">
-              Years of Coding
-            </span>
-          </div>
-
-          <div className="p-6 rounded-3xl border border-borderLight bg-white flex flex-col items-center justify-center text-center space-y-2 hover:border-accent/30 transition-all duration-300 shadow-sm">
-            <AnimatedCounter value={2} suffix="+" />
-            <span className="text-[9px] uppercase tracking-widest text-subLight font-bold">
-              Projects Completed
-            </span>
-          </div>
-
-          <div className="p-6 rounded-3xl border border-borderLight bg-white flex flex-col items-center justify-center text-center space-y-2 hover:border-accent/30 transition-all duration-300 shadow-sm">
-            <AnimatedCounter value={10} suffix="+" />
-            <span className="text-[9px] uppercase tracking-widest text-subLight font-bold">
-              Tech Stack Tools
-            </span>
-          </div>
-
-          <div className="p-6 rounded-3xl border border-borderLight bg-white flex flex-col items-center justify-center text-center space-y-2 hover:border-accent/30 transition-all duration-300 shadow-sm">
-            <AnimatedCounter value={99} suffix="%" />
-            <span className="text-[9px] uppercase tracking-widest text-subLight font-bold">
-              Lighthouse Target
-            </span>
-          </div>
+          {[
+            { value: 2, suffix: "+", label: "Years of Coding" },
+            { value: 2, suffix: "+", label: "Projects Completed" },
+            { value: 10, suffix: "+", label: "Tech Stack Tools" },
+            { value: 99, suffix: "%", label: "Lighthouse Target" }
+          ].map((stat, sIdx) => (
+            <motion.div
+              key={sIdx}
+              initial={{ opacity: 0, y: 35, scale: 0.94 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: sIdx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="p-6 rounded-3xl border border-borderLight bg-white flex flex-col items-center justify-center text-center space-y-2 hover:border-accent/30 transition-all duration-300 shadow-sm"
+            >
+              <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+              <span className="text-[9px] uppercase tracking-widest text-subLight font-bold">
+                {stat.label}
+              </span>
+            </motion.div>
+          ))}
         </div>
 
       </div>
