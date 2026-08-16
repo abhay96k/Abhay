@@ -99,67 +99,47 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none"
       >
-        <div className="w-full max-w-6xl flex items-center justify-between px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-white/85 backdrop-blur-2xl border border-white/90 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-xl pointer-events-auto transition-all duration-300 relative overflow-hidden">
+        <div className="w-full max-w-6xl flex items-center justify-between px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-white/80 backdrop-blur-2xl border border-white/85 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-xl pointer-events-auto transition-all duration-300">
           
-          {/* Subtle Top Ambient Gradient Line Moving from Left to Right */}
-          <div className="absolute top-0 left-0 right-0 h-[1.5px] overflow-hidden pointer-events-none rounded-t-2xl">
-            <motion.div 
-              className="h-full w-1/2 bg-gradient-to-r from-transparent via-amber-500/80 to-transparent opacity-90"
-              animate={{ x: ['-100%', '250%'] }}
-              transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
-            />
-          </div>
-
           {/* Left Side: Circular Avatar + ABHAY CHAVAN */}
           <div 
             onClick={() => handleNavClick('home')}
             onDoubleClick={() => onOpenAdmin?.()}
-            className="flex items-center space-x-2.5 sm:space-x-3.5 cursor-pointer min-w-0 select-none py-1"
+            className="flex items-center space-x-2.5 sm:space-x-3.5 cursor-pointer min-w-0 select-none"
           >
             <img 
               src={navbarAvatar} 
               alt="Abhay Chavan" 
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover border border-borderLight shadow-sm flex-shrink-0"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border border-borderLight shadow-sm flex-shrink-0"
             />
-            <span className="font-sans font-extrabold text-xs sm:text-sm tracking-wider text-textLight truncate">
+            <span className="font-sans font-extrabold text-xs sm:text-sm md:text-base tracking-wider text-textLight truncate">
               ABHAY CHAVAN
             </span>
           </div>
 
-          {/* Desktop Nav Items with Sliding Pill & Glow Line */}
-          <div className="hidden md:flex items-center space-x-2">
+          {/* Desktop Nav Items */}
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative px-4 py-2 text-xs sm:text-sm font-extrabold tracking-wide transition-colors duration-300 rounded-xl cursor-pointer ${
+                  className={`relative py-1.5 text-sm sm:text-base font-extrabold tracking-wide transition-all duration-300 ${
                     isActive 
                       ? 'text-textLight font-black' 
                       : 'text-subLight hover:text-textLight'
                   }`}
                   data-cursor-text="view"
                 >
-                  {/* Sliding Pill Background Capsule */}
-                  {isActive && (
-                    <motion.span
-                      layoutId="activePillCapsule"
-                      className="absolute inset-0 bg-neutral-100/90 border border-neutral-200/60 rounded-xl shadow-xs"
-                      transition={{ type: 'spring', damping: 26, stiffness: 240 }}
-                    />
-                  )}
-
-                  {/* Animated Active Line under Text sliding smoothly left-to-right */}
+                  {item.label}
                   {isActive && (
                     <motion.span
                       layoutId="activeUnderline"
-                      className="absolute bottom-1 left-3.5 right-3.5 h-[2px] bg-gradient-to-r from-amber-500 to-accent rounded-full shadow-[0_2px_8px_rgba(217,119,6,0.6)]"
-                      transition={{ type: 'spring', damping: 26, stiffness: 240 }}
+                      className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-black rounded-full"
+                      transition={{ type: 'spring', damping: 25, stiffness: 220 }}
                     />
                   )}
-
-                  <span className="relative z-10">{item.label}</span>
                 </button>
               );
             })}
