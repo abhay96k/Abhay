@@ -13,7 +13,6 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   const navItems = [
     { id: 'home', label: 'Home' },
@@ -43,21 +42,6 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
     window.addEventListener('scroll', controlNavbar);
     return () => window.removeEventListener('scroll', controlNavbar);
   }, [lastScrollY]);
-
-  // Track page scroll percentage for animated progress line
-  useEffect(() => {
-    const handleScrollProgress = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
-        setScrollProgress(progress);
-      }
-    };
-
-    window.addEventListener('scroll', handleScrollProgress);
-    handleScrollProgress();
-    return () => window.removeEventListener('scroll', handleScrollProgress);
-  }, []);
 
   // Setup intersection observer to determine active section
   useEffect(() => {
@@ -115,47 +99,67 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none"
       >
-        <div className="w-full max-w-6xl flex items-center justify-between px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-white/80 backdrop-blur-2xl border border-white/85 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-xl pointer-events-auto transition-all duration-300 relative overflow-hidden">
+        <div className="w-full max-w-6xl flex items-center justify-between px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-white/85 backdrop-blur-2xl border border-white/90 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-xl pointer-events-auto transition-all duration-300 relative overflow-hidden">
           
+          {/* Subtle Top Ambient Gradient Line Moving from Left to Right */}
+          <div className="absolute top-0 left-0 right-0 h-[1.5px] overflow-hidden pointer-events-none rounded-t-2xl">
+            <motion.div 
+              className="h-full w-1/2 bg-gradient-to-r from-transparent via-amber-500/80 to-transparent opacity-90"
+              animate={{ x: ['-100%', '250%'] }}
+              transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+            />
+          </div>
+
           {/* Left Side: Circular Avatar + ABHAY CHAVAN */}
           <div 
             onClick={() => handleNavClick('home')}
             onDoubleClick={() => onOpenAdmin?.()}
-            className="flex items-center space-x-2.5 sm:space-x-3.5 cursor-pointer min-w-0 select-none"
+            className="flex items-center space-x-2.5 sm:space-x-3.5 cursor-pointer min-w-0 select-none py-1"
           >
             <img 
               src={navbarAvatar} 
               alt="Abhay Chavan" 
-              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border border-borderLight shadow-sm flex-shrink-0"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover border border-borderLight shadow-sm flex-shrink-0"
             />
-            <span className="font-sans font-extrabold text-xs sm:text-sm md:text-base tracking-wider text-textLight truncate">
+            <span className="font-sans font-extrabold text-xs sm:text-sm tracking-wider text-textLight truncate">
               ABHAY CHAVAN
             </span>
           </div>
 
-          {/* Desktop Nav Items */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Desktop Nav Items with Sliding Pill & Glow Line */}
+          <div className="hidden md:flex items-center space-x-2">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative py-1.5 text-sm sm:text-base font-extrabold tracking-wide transition-all duration-300 ${
+                  className={`relative px-4 py-2 text-xs sm:text-sm font-extrabold tracking-wide transition-colors duration-300 rounded-xl cursor-pointer ${
                     isActive 
                       ? 'text-textLight font-black' 
                       : 'text-subLight hover:text-textLight'
                   }`}
                   data-cursor-text="view"
                 >
-                  {item.label}
+                  {/* Sliding Pill Background Capsule */}
+                  {isActive && (
+                    <motion.span
+                      layoutId="activePillCapsule"
+                      className="absolute inset-0 bg-neutral-100/90 border border-neutral-200/60 rounded-xl shadow-xs"
+                      transition={{ type: 'spring', damping: 26, stiffness: 240 }}
+                    />
+                  )}
+
+                  {/* Animated Active Line under Text sliding smoothly left-to-right */}
                   {isActive && (
                     <motion.span
                       layoutId="activeUnderline"
-                      className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-amber-500 to-accent rounded-full shadow-[0_2px_8px_rgba(217,119,6,0.5)]"
-                      transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+                      className="absolute bottom-1 left-3.5 right-3.5 h-[2px] bg-gradient-to-r from-amber-500 to-accent rounded-full shadow-[0_2px_8px_rgba(217,119,6,0.6)]"
+                      transition={{ type: 'spring', damping: 26, stiffness: 240 }}
                     />
                   )}
+
+                  <span className="relative z-10">{item.label}</span>
                 </button>
               );
             })}
@@ -168,11 +172,11 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
             <a
               href="/Abhay_Chavan_Resume.pdf"
               download="Abhay_Chavan_Resume.pdf"
-              className="hidden sm:flex items-center space-x-2 px-4 py-2 border border-borderLight hover:border-textLight text-textLight text-xs sm:text-sm uppercase tracking-wider font-extrabold rounded-xl transition-all duration-300 shadow-sm"
+              className="hidden sm:flex items-center space-x-2 px-4 py-2 border border-borderLight hover:border-textLight text-textLight text-xs uppercase tracking-wider font-extrabold rounded-xl transition-all duration-300 shadow-sm"
               data-cursor-text="download cv"
             >
               <span>Resume</span>
-              <FiDownload className="w-4 h-4" />
+              <FiDownload className="w-3.5 h-3.5" />
             </a>
 
             {/* Mobile Menu Icon */}
@@ -184,22 +188,6 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
               <HiMenuAlt4 className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
-          </div>
-
-          {/* Animated Line Moving from Left to Right at Bottom of Navigation Bar */}
-          <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-neutral-200/50 overflow-hidden pointer-events-none rounded-b-2xl">
-            {/* Scroll Progress Line (Expands Left to Right based on scroll position) */}
-            <motion.div 
-              className="h-full bg-gradient-to-r from-amber-500 via-accent to-amber-600 shadow-[0_0_12px_rgba(217,119,6,0.8)]"
-              style={{ width: `${scrollProgress}%` }}
-              transition={{ ease: 'easeOut', duration: 0.1 }}
-            />
-            {/* Continuous Luminous Light Beam moving from Left to Right */}
-            <motion.div 
-              className="absolute top-0 bottom-0 w-1/3 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-90 filter blur-[0.5px]"
-              animate={{ x: ['-100%', '400%'] }}
-              transition={{ repeat: Infinity, duration: 2.8, ease: 'linear' }}
-            />
           </div>
 
         </div>
