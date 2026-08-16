@@ -121,7 +121,13 @@ export default function Projects() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
                   
                   {/* Left Column: Interactive Screenshot */}
-                  <div className="lg:col-span-6 flex justify-center">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 70, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: false, margin: "-80px" }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+                    className="lg:col-span-6 flex justify-center"
+                  >
                     <div className="w-full relative rounded-2xl overflow-hidden shadow-[0_15px_30px_rgba(0,0,0,0.05)] border border-borderLight aspect-[16/10] group cursor-pointer bg-secBgLight">
                       
                       {/* Browser Header Bar */}
@@ -157,7 +163,7 @@ export default function Projects() {
                       </div>
 
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* Right Column: Descriptions & Tech Specs */}
                   <div className="lg:col-span-6 flex flex-col space-y-6 justify-between h-full">

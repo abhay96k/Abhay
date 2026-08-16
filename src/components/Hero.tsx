@@ -5,6 +5,7 @@ import abhayProfile from '../assets/abhay-profile.png';
 
 export default function Hero() {
   const [currentRoleIdx, setCurrentRoleIdx] = useState(0);
+  const [isImageEntered, setIsImageEntered] = useState(false);
   const roles = [
     "AI & Computer Vision Enthusiast",
     "AI Developer",
@@ -218,12 +219,12 @@ export default function Hero() {
               rotateY: rotY,
               transformStyle: 'preserve-3d'
             }}
-            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            initial={{ opacity: 0, scale: 0.92, y: 120 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
             className="relative z-10 w-full max-w-[580px] lg:max-w-[660px] xl:max-w-[700px] aspect-[4/5] flex items-end justify-center group"
           >
-            {/* Profile image with subtle float, drop-shadow, and smooth bottom fade */}
+            {/* Profile image with smooth bottom-up entrance animation and float loop */}
             <motion.img 
               src={abhayProfile}
               alt="Abhay Chavan"
@@ -232,8 +233,20 @@ export default function Hero() {
                 maskImage: 'linear-gradient(to bottom, black 78%, transparent 92%)',
                 WebkitMaskImage: 'linear-gradient(to bottom, black 78%, transparent 92%)'
               }}
-              animate={{ y: [0, -8, 0] }}
-              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+              initial={{ opacity: 0, y: 150, scale: 0.94 }}
+              animate={
+                isImageEntered 
+                  ? { opacity: 1, y: [0, -10, 0], scale: 1 } 
+                  : { opacity: 1, y: 0, scale: 1 }
+              }
+              transition={
+                isImageEntered 
+                  ? { repeat: Infinity, duration: 6, ease: "easeInOut" } 
+                  : { duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }
+              }
+              onAnimationComplete={() => {
+                if (!isImageEntered) setIsImageEntered(true);
+              }}
             />
 
             {/* Vertical Floating Social Media Icon Stack (LinkedIn, Instagram, GitHub) */}
