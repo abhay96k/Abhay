@@ -52,7 +52,7 @@ export default function Projects() {
       ],
       tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Google Maps API', 'AI Analytics', 'IoT WebSockets'],
       github: 'https://github.com/abhay96k/CivicConnect-full-project',
-      demo: 'https://github.com/abhay96k/CivicConnect-full-project',
+      demo: 'https://civic-connect-2-wine.vercel.app/',
       image: smartPotholeImg,
       type: 'IoT & Web Integration'
     }
