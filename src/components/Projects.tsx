@@ -128,15 +128,19 @@ export default function Projects() {
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
                     className="lg:col-span-6 flex justify-center"
                   >
-                    <div className="w-full relative rounded-2xl overflow-hidden shadow-[0_15px_30px_rgba(0,0,0,0.05)] border border-borderLight aspect-[16/10] group cursor-pointer bg-secBgLight">
-                      
+                    <a 
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full relative rounded-2xl overflow-hidden shadow-[0_15px_30px_rgba(0,0,0,0.05)] border border-borderLight aspect-[16/10] group cursor-pointer bg-secBgLight block"
+                    >
                       {/* Browser Header Bar */}
                       <div className="w-full h-8 bg-white flex items-center px-4 space-x-1.5 border-b border-borderLight relative z-10">
                         <span className="w-2 h-2 rounded-full bg-accent/30" />
                         <span className="w-2 h-2 rounded-full bg-accent/50" />
                         <span className="w-2 h-2 rounded-full bg-accent" />
-                        <div className="absolute left-1/2 -translate-x-1/2 bg-secBgLight border border-borderLight px-4 py-0.5 rounded-md text-[8px] font-sans font-semibold text-subLight select-none">
-                          {project.id}.demo
+                        <div className="absolute left-1/2 -translate-x-1/2 bg-secBgLight border border-borderLight px-4 py-0.5 rounded-md text-[8px] font-sans font-semibold text-subLight select-none truncate max-w-[200px]">
+                          {project.demo.replace(/^https?:\/\//, '').replace(/\/$/, '')}
                         </div>
                       </div>
 
@@ -162,7 +166,7 @@ export default function Projects() {
                         </div>
                       </div>
 
-                    </div>
+                    </a>
                   </motion.div>
 
                   {/* Right Column: Descriptions & Tech Specs */}
