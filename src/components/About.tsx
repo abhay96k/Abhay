@@ -61,14 +61,6 @@ export default function About() {
     },
     {
       num: '02',
-      year: '2026',
-      title: 'Hackhive Hackathon - 2nd Prize',
-      institution: 'Angadi Institute of Technology & Management (E&C)',
-      description: 'Secured 2nd prize in App/Web Development domain.',
-      icon: <FiCpu className="w-4 h-4 text-accent" />
-    },
-    {
-      num: '03',
       year: '2026 - Present',
       title: 'Full Stack MERN Developer',
       institution: 'Mess Tiffen & Custom Web Apps',

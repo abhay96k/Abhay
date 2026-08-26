@@ -195,28 +195,6 @@ def generate_pdf():
     story.append(lang_table)
     story.append(Spacer(1, 12))
 
-    # --- AWARDS ---
-    story.append(create_section_header("Awards", section_heading))
-    story.append(Spacer(1, 8))
-
-    award_left = [Paragraph("<b>07/05/2026</b>", body_style)]
-    award_right = [
-        Paragraph("<b>Hackhive (Hackathon)</b>, <i>Angadi Institute of Technology and Management ( E&C )</i>", body_style),
-        Paragraph("• 2nd price", body_style),
-        Paragraph("• Domain App/web development", body_style)
-    ]
-
-    award_table = Table([[award_left, award_right]], colWidths=[160, 380])
-    award_table.setStyle(TableStyle([
-        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 0),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 0),
-        ('TOPPADDING', (0, 0), (-1, -1), 0),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
-    ]))
-    story.append(award_table)
-    story.append(Spacer(1, 12))
-
     # --- PROJECTS ---
     story.append(create_section_header("Projects", section_heading))
     story.append(Spacer(1, 8))
