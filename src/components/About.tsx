@@ -203,8 +203,8 @@ export default function About() {
         {/* Statistics Grid with Staggered Scroll Entrance */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10">
           {[
-            { value: 2, suffix: "+", label: "Years of Coding" },
-            { value: 2, suffix: "+", label: "Projects Completed" },
+            { value: 1, suffix: "+", label: "Years of Coding" },
+            { value: 1, suffix: "+", label: "Projects Completed" },
             { value: 10, suffix: "+", label: "Tech Stack Tools" },
             { value: 99, suffix: "%", label: "Lighthouse Target" }
           ].map((stat, sIdx) => (
