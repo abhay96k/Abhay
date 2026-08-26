@@ -205,7 +205,7 @@ export default function About() {
           {[
             { value: 1, suffix: "+", label: "Years of Coding" },
             { value: 1, suffix: "+", label: "Projects Completed" },
-            { value: 10, suffix: "+", label: "Tech Stack Tools" },
+            { value: 5, suffix: "+", label: "Tech Stack Tools" },
             { value: 99, suffix: "%", label: "Lighthouse Target" }
           ].map((stat, sIdx) => (
             <motion.div
