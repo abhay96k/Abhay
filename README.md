@@ -45,8 +45,7 @@ abhay/
 ├── src/
 │   ├── assets/
 │   │   ├── abhay-profile.png # Background-removed transparent silhouette
-│   │   ├── mess-tiffin.png   # High-fidelity project screenshot
-│   │   └── smart-pothole.png # High-fidelity project screenshot
+│   │   └── mess-tiffin.png   # High-fidelity project screenshot
 │   ├── components/
 │   │   ├── Background3D.tsx  # Three.js R3F Canvas scene
 │   │   ├── CustomCursor.tsx  # Smooth spring cursor follower

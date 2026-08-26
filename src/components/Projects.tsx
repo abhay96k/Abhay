@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiCpu, FiLayers } from 'react-icons/fi';
 import messTiffinImg from '../assets/mess-tiffin.png';
-import smartPotholeImg from '../assets/smart-pothole.png';
 
 interface Project {
   id: string;
@@ -37,24 +36,6 @@ export default function Projects() {
       demo: 'https://mess-tiffen-mng.vercel.app/',
       image: messTiffinImg,
       type: 'Full Stack MERN Project'
-    },
-    {
-      id: 'smart-pothole',
-      title: 'Smart Pothole & Traffic Management',
-      headline: 'AI Spatial Analytics & Civic Infrastructure',
-      description: 'A civic infrastructure system that detects road damage automatically using IoT accelerometer-GPS modules and computer vision. Feeds real-time coordinates to a municipal dashboard to assist in optimized traffic rerouting and repair scheduling.',
-      features: [
-        'AI Detection & Defect Classification',
-        'Google Maps GIS Spatial Overlay',
-        'Traffic Control Dashboard & Optimization',
-        'Live Reporting & Citizen Alerts Queue',
-        'IoT Firmware Integration'
-      ],
-      tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Google Maps API', 'AI Analytics', 'IoT WebSockets'],
-      github: 'https://github.com/abhay96k/CivicConnect-full-project',
-      demo: 'https://civic-connect-2-wine.vercel.app/',
-      image: smartPotholeImg,
-      type: 'IoT & Web Integration'
     }
   ];
 
