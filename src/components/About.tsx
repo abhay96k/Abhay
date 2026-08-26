@@ -54,7 +54,7 @@ export default function About() {
       institution: 'Angadi Institute of Technology & Management, Belgavi',
       description: (
         <>
-          Currently in <strong className="font-extrabold text-textLight">2nd Year</strong> maintaining an <strong className="font-extrabold text-textLight">8.5 CGPA</strong>.
+          Currently in <strong className="font-extrabold text-textLight">3rd Year</strong> maintaining an <strong className="font-extrabold text-textLight">8.0 CGPA</strong>.
         </>
       ),
       icon: <FiBookOpen className="w-4 h-4 text-accent" />

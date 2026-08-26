@@ -142,8 +142,8 @@ def generate_pdf():
     edu_right = [
         Paragraph("<b>Computer science and engineering,</b>", body_bold),
         Paragraph("<i>Angadi Institute of Technology and Management, Belgavi</i>", sub_info),
-        Paragraph("• 2nd year", body_style),
-        Paragraph("• CGPA : 8.5", body_style)
+        Paragraph("• 3rd year", body_style),
+        Paragraph("• CGPA : 8.0", body_style)
     ]
 
     edu_table = Table([[edu_left, edu_right]], colWidths=[160, 380])
