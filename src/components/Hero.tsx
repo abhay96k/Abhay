@@ -209,7 +209,7 @@ export default function Hero() {
         </div>
 
         {/* RIGHT SIDE: Interactive Portrait Silhouette with 3D Standing Platform */}
-        <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative mt-6 lg:mt-12 pl-6 lg:pl-20 translate-x-3 lg:translate-x-8">
+        <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative mt-2 lg:mt-4 pl-6 lg:pl-20 translate-x-3 lg:translate-x-8">
           
           <motion.div
             style={{ 
