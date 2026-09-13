@@ -84,11 +84,11 @@ export default function Hero() {
   return (
     <section 
       id="home"
-      className="min-h-screen w-full flex items-center justify-center pt-28 pb-16 px-6 md:px-12 relative overflow-hidden"
+      className="min-h-screen w-full flex items-center justify-center pt-20 sm:pt-24 pb-12 px-6 md:px-12 relative overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10 -translate-y-6 sm:-translate-y-8 lg:-translate-y-10">
         
         {/* LEFT SIDE: Typography & Actions */}
         <div className="lg:col-span-6 flex flex-col justify-center space-y-6">
@@ -209,7 +209,7 @@ export default function Hero() {
         </div>
 
         {/* RIGHT SIDE: Interactive Portrait Silhouette with 3D Standing Platform */}
-        <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative mt-4 lg:mt-8 pl-6 lg:pl-20 translate-x-3 lg:translate-x-8 translate-y-8 sm:translate-y-10">
+        <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative -mt-2 lg:-mt-6 pl-6 lg:pl-20 translate-x-3 lg:translate-x-8">
           
           <motion.div
             style={{ 
