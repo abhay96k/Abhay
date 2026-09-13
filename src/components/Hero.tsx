@@ -208,8 +208,8 @@ export default function Hero() {
 
         </div>
 
-        {/* RIGHT SIDE: Interactive Portrait Silhouette */}
-        <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative -mt-3 lg:-mt-6 pl-6 lg:pl-20 translate-x-3 lg:translate-x-8">
+        {/* RIGHT SIDE: Interactive Portrait Silhouette with 3D Standing Platform */}
+        <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative mt-4 lg:mt-8 pl-6 lg:pl-20 translate-x-3 lg:translate-x-8 translate-y-8 sm:translate-y-10">
           
           <motion.div
             style={{ 
@@ -222,28 +222,69 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.92, y: 120 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
-            className="relative z-10 w-full max-w-[580px] lg:max-w-[660px] xl:max-w-[700px] aspect-[4/5] flex items-end justify-center group"
+            className="relative z-10 w-full max-w-[580px] lg:max-w-[660px] xl:max-w-[700px] flex flex-col items-center justify-end group"
           >
-            {/* 3D Model image with smooth bottom-up entrance animation, interactive 3D parallax and float loop */}
-            <motion.img 
-              src={abhayProfile}
-              alt="3D Doraemon"
-              className="w-full h-auto max-h-[650px] object-contain z-10 select-none group-hover:scale-[1.03] transition-transform duration-700 ease-out pointer-events-none filter drop-shadow-[0_20px_35px_rgba(0,102,204,0.18)] drop-shadow-[0_10px_20px_rgba(0,0,0,0.1)]"
-              initial={{ opacity: 0, y: 150, scale: 0.94 }}
-              animate={
-                isImageEntered 
-                  ? { opacity: 1, y: [0, -10, 0], scale: 1 } 
-                  : { opacity: 1, y: 0, scale: 1 }
-              }
-              transition={
-                isImageEntered 
-                  ? { repeat: Infinity, duration: 6, ease: "easeInOut" } 
-                  : { duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }
-              }
-              onAnimationComplete={() => {
-                if (!isImageEntered) setIsImageEntered(true);
-              }}
-            />
+            {/* Character Wrapper */}
+            <div className="relative w-full flex items-end justify-center">
+              {/* 3D Model image standing firmly with subtle idle breath */}
+              <motion.img 
+                src={abhayProfile}
+                alt="3D Doraemon"
+                className="w-full h-auto max-h-[620px] object-contain z-20 select-none group-hover:scale-[1.02] transition-transform duration-700 ease-out pointer-events-none relative"
+                initial={{ opacity: 0, y: 150, scale: 0.94 }}
+                animate={
+                  isImageEntered 
+                    ? { opacity: 1, y: [0, -3, 0], scale: 1 } 
+                    : { opacity: 1, y: 0, scale: 1 }
+                }
+                transition={
+                  isImageEntered 
+                    ? { repeat: Infinity, duration: 4.5, ease: "easeInOut" } 
+                    : { duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }
+                }
+                onAnimationComplete={() => {
+                  if (!isImageEntered) setIsImageEntered(true);
+                }}
+              />
+
+              {/* 3D Realistic Standing Platform & Ground Shadows */}
+              <div className="absolute -bottom-5 sm:-bottom-7 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center pointer-events-none select-none">
+                
+                {/* 1. Foot Contact Shadows (anchoring each foot firmly) */}
+                <div className="absolute -top-3 w-full flex justify-center space-x-14 sm:space-x-20 z-20">
+                  {/* Left Foot Contact Shadow */}
+                  <motion.div 
+                    animate={isImageEntered ? { scale: [1, 0.95, 1], opacity: [0.65, 0.55, 0.65] } : {}}
+                    transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
+                    className="w-20 sm:w-24 h-4 bg-neutral-950/70 rounded-[100%] blur-[2.5px]"
+                  />
+                  {/* Right Foot Contact Shadow */}
+                  <motion.div 
+                    animate={isImageEntered ? { scale: [1, 0.95, 1], opacity: [0.65, 0.55, 0.65] } : {}}
+                    transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
+                    className="w-20 sm:w-24 h-4 bg-neutral-950/70 rounded-[100%] blur-[2.5px]"
+                  />
+                </div>
+
+                {/* 2. Ambient Occlusion Core Shadow */}
+                <motion.div 
+                  animate={isImageEntered ? { scale: [1, 0.97, 1], opacity: [0.5, 0.42, 0.5] } : {}}
+                  transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
+                  className="w-56 sm:w-72 h-7 bg-neutral-900/50 rounded-[100%] blur-md z-15 -mt-2"
+                />
+
+                {/* 3. Sleek 3D Glassmorphic Podium Platform */}
+                <div className="relative w-[320px] sm:w-[420px] lg:w-[460px] h-10 sm:h-12 rounded-[100%] bg-gradient-to-b from-white/95 via-white/50 to-white/10 backdrop-blur-xl border border-white/90 shadow-[0_15px_30px_rgba(0,0,0,0.07)] flex items-center justify-center -mt-4 z-10">
+                  {/* Inner bevel ring highlight */}
+                  <div className="w-[96%] h-[82%] rounded-[100%] border border-white/95 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
+                </div>
+
+                {/* 4. Soft Diffused Ambient Ground Glow & Floor Drop Shadow */}
+                <div className="w-[360px] sm:w-[460px] h-10 rounded-[100%] bg-sky-400/15 blur-xl -mt-6 z-0" />
+                <div className="w-[300px] sm:w-[380px] h-8 rounded-[100%] bg-black/15 blur-lg -mt-8 z-0" />
+
+              </div>
+            </div>
 
             {/* Vertical Floating Social Media Icon Stack (LinkedIn, Instagram, GitHub) */}
             <motion.div 
