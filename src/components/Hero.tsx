@@ -84,11 +84,11 @@ export default function Hero() {
   return (
     <section 
       id="home"
-      className="min-h-screen w-full flex items-center justify-center pt-28 sm:pt-32 pb-14 px-6 md:px-12 relative overflow-hidden"
+      className="min-h-screen w-full flex items-center justify-center pt-20 sm:pt-24 pb-14 px-6 md:px-12 relative overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10 pt-4">
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
         
         {/* LEFT SIDE: Typography & Actions */}
         <div className="lg:col-span-6 flex flex-col justify-center space-y-6">
@@ -98,7 +98,7 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.9, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 bg-neutral-100/60 rounded-full border border-neutral-200/40"
+              className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 bg-neutral-100/60 rounded-full border border-neutral-200/40 -translate-y-2 lg:-translate-y-4"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
               <span className="text-[10px] tracking-wider font-bold text-accent uppercase">
