@@ -25,16 +25,33 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  // Eye Blinking loop (blinks every 3 seconds)
+  // Natural Eye Blinking loop
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsBlinking(true);
-      setTimeout(() => {
-        setIsBlinking(false);
-      }, 180);
-    }, 3000);
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const scheduleBlink = () => {
+      const delay = Math.floor(Math.random() * 1700) + 2800; // Blink every ~3 to 4.5s
+      timeoutId = setTimeout(() => {
+        setIsBlinking(true);
+        setTimeout(() => {
+          setIsBlinking(false);
+          // 20% chance of a quick double-blink
+          if (Math.random() < 0.2) {
+            setTimeout(() => {
+              setIsBlinking(true);
+              setTimeout(() => {
+                setIsBlinking(false);
+                scheduleBlink();
+              }, 140);
+            }, 120);
+          } else {
+            scheduleBlink();
+          }
+        }, 160);
+      }, delay);
+    };
 
-    return () => clearInterval(interval);
+    scheduleBlink();
+    return () => clearTimeout(timeoutId);
   }, []);
 
   // Mouse coordinates for 3D parallax
@@ -254,10 +271,7 @@ export default function Hero() {
                 }
                 transition={
                   isImageEntered 
-                    ? { 
-                        y: { repeat: Infinity, duration: 4.5, ease: "easeInOut" },
-                        opacity: { duration: 0.05, ease: "easeInOut" }
-                      } 
+                    ? { repeat: Infinity, duration: 4.5, ease: "easeInOut" } 
                     : { duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }
                 }
                 onAnimationComplete={() => {
@@ -278,10 +292,7 @@ export default function Hero() {
                 }
                 transition={
                   isImageEntered 
-                    ? { 
-                        y: { repeat: Infinity, duration: 4.5, ease: "easeInOut" },
-                        opacity: { duration: 0.05, ease: "easeInOut" }
-                      } 
+                    ? { repeat: Infinity, duration: 4.5, ease: "easeInOut" } 
                     : { duration: 0.05, ease: "easeInOut" }
                 }
               />
