@@ -254,7 +254,10 @@ export default function Hero() {
                 }
                 transition={
                   isImageEntered 
-                    ? { repeat: Infinity, duration: 4.5, ease: "easeInOut" } 
+                    ? { 
+                        y: { repeat: Infinity, duration: 4.5, ease: "easeInOut" },
+                        opacity: { duration: 0.05, ease: "easeInOut" }
+                      } 
                     : { duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }
                 }
                 onAnimationComplete={() => {
@@ -275,7 +278,10 @@ export default function Hero() {
                 }
                 transition={
                   isImageEntered 
-                    ? { repeat: Infinity, duration: 4.5, ease: "easeInOut" } 
+                    ? { 
+                        y: { repeat: Infinity, duration: 4.5, ease: "easeInOut" },
+                        opacity: { duration: 0.05, ease: "easeInOut" }
+                      } 
                     : { duration: 0.05, ease: "easeInOut" }
                 }
               />
