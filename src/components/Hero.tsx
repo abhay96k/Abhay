@@ -224,15 +224,11 @@ export default function Hero() {
             transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
             className="relative z-10 w-full max-w-[580px] lg:max-w-[660px] xl:max-w-[700px] aspect-[4/5] flex items-end justify-center group"
           >
-            {/* Profile image with smooth bottom-up entrance animation and float loop */}
+            {/* 3D Model image with smooth bottom-up entrance animation, interactive 3D parallax and float loop */}
             <motion.img 
               src={abhayProfile}
-              alt="Abhay Chavan"
-              className="w-full h-auto max-h-[700px] object-contain z-10 select-none group-hover:scale-[1.03] transition-transform duration-700 ease-out pointer-events-none filter drop-shadow-[0_25px_35px_rgba(0,0,0,0.15)]"
-              style={{
-                maskImage: 'linear-gradient(to bottom, black 78%, transparent 92%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 78%, transparent 92%)'
-              }}
+              alt="3D Doraemon"
+              className="w-full h-auto max-h-[650px] object-contain z-10 select-none group-hover:scale-[1.03] transition-transform duration-700 ease-out pointer-events-none filter drop-shadow-[0_20px_35px_rgba(0,102,204,0.18)] drop-shadow-[0_10px_20px_rgba(0,0,0,0.1)]"
               initial={{ opacity: 0, y: 150, scale: 0.94 }}
               animate={
                 isImageEntered 
