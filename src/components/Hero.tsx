@@ -1,13 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { FiArrowRight, FiLinkedin, FiInstagram, FiGithub } from 'react-icons/fi';
-import abhayProfile from '../assets/abhay-profile.png';
-import abhayProfileClosed from '../assets/abhay-profile-closed.png';
 
 export default function Hero() {
   const [currentRoleIdx, setCurrentRoleIdx] = useState(0);
-  const [isImageEntered, setIsImageEntered] = useState(false);
-  const [isBlinking, setIsBlinking] = useState(false);
 
   const roles = [
     "AI & Computer Vision Enthusiast",
@@ -23,35 +19,6 @@ export default function Hero() {
       setCurrentRoleIdx((prev) => (prev + 1) % roles.length);
     }, 2800);
     return () => clearInterval(interval);
-  }, []);
-
-  // Natural Eye Blinking loop
-  useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-    const scheduleBlink = () => {
-      const delay = Math.floor(Math.random() * 1700) + 2800; // Blink every ~3 to 4.5s
-      timeoutId = setTimeout(() => {
-        setIsBlinking(true);
-        setTimeout(() => {
-          setIsBlinking(false);
-          // 20% chance of a quick double-blink
-          if (Math.random() < 0.2) {
-            setTimeout(() => {
-              setIsBlinking(true);
-              setTimeout(() => {
-                setIsBlinking(false);
-                scheduleBlink();
-              }, 140);
-            }, 120);
-          } else {
-            scheduleBlink();
-          }
-        }, 160);
-      }, delay);
-    };
-
-    scheduleBlink();
-    return () => clearTimeout(timeoutId);
   }, []);
 
   // Mouse coordinates for 3D parallax
@@ -256,46 +223,31 @@ export default function Hero() {
             transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
             className="relative z-10 w-full max-w-[580px] lg:max-w-[660px] xl:max-w-[700px] flex flex-col items-center justify-end group"
           >
-            {/* Character Wrapper */}
+            {/* Hero Video Media Wrapper */}
             <div className="relative w-full flex items-end justify-center">
-              {/* 3D Model image standing firmly with subtle idle breath (Open Eyes) */}
-              <motion.img 
-                src={abhayProfile}
-                alt="3D Doraemon"
-                className="w-full h-auto max-h-[620px] object-contain z-20 select-none group-hover:scale-[1.02] transition-transform duration-700 ease-out pointer-events-none relative"
-                initial={{ opacity: 0, y: 150, scale: 0.94 }}
-                animate={
-                  isImageEntered 
-                    ? { opacity: isBlinking ? 0 : 1, y: [0, -3, 0], scale: 1 } 
-                    : { opacity: isBlinking ? 0 : 1, y: 0, scale: 1 }
-                }
-                transition={
-                  isImageEntered 
-                    ? { repeat: Infinity, duration: 4.5, ease: "easeInOut" } 
-                    : { duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }
-                }
-                onAnimationComplete={() => {
-                  if (!isImageEntered) setIsImageEntered(true);
-                }}
-              />
-
-              {/* 3D Model image (Closed Eyes / Blinking Overlay) */}
-              <motion.img 
-                src={abhayProfileClosed}
-                alt="3D Doraemon Blinking"
-                className="absolute inset-0 w-full h-auto max-h-[620px] object-contain z-20 select-none group-hover:scale-[1.02] transition-transform duration-700 ease-out pointer-events-none"
-                initial={{ opacity: 0 }}
-                animate={
-                  isImageEntered 
-                    ? { opacity: isBlinking ? 1 : 0, y: [0, -3, 0], scale: 1 } 
-                    : { opacity: isBlinking ? 1 : 0, y: 0, scale: 1 }
-                }
-                transition={
-                  isImageEntered 
-                    ? { repeat: Infinity, duration: 4.5, ease: "easeInOut" } 
-                    : { duration: 0.05, ease: "easeInOut" }
-                }
-              />
+              {/* MP4 Video Player in Hero Section */}
+              <motion.div 
+                className="w-full max-h-[620px] z-20 select-none group-hover:scale-[1.02] transition-transform duration-700 ease-out relative rounded-3xl overflow-hidden shadow-2xl border border-white/40 bg-black/10 backdrop-blur-md"
+                initial={{ opacity: 0, y: 120, scale: 0.94 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
+              >
+                <video 
+                  autoPlay 
+                  loop 
+                  muted 
+                  playsInline 
+                  controls
+                  className="w-full h-auto max-h-[620px] object-cover rounded-3xl"
+                >
+                  <source src="/videos/hero.mp4" type="video/mp4" />
+                  <source src="/videos/video.mp4" type="video/mp4" />
+                  <source src="/videos/demo.mp4" type="video/mp4" />
+                  <source src="/videos/profile.mp4" type="video/mp4" />
+                  <source src="/videos/video1.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </motion.div>
 
               {/* 3D Realistic Standing Platform & Ground Shadows */}
               <div className="absolute -bottom-5 sm:-bottom-7 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center pointer-events-none select-none">
