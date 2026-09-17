@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { FiArrowRight, FiLinkedin, FiInstagram, FiGithub } from 'react-icons/fi';
+import abhayProfile from '../assets/abhay-profile.png';
+import abhayProfileClosed from '../assets/abhay-profile-closed.png';
 
 export default function Hero() {
   const [currentRoleIdx, setCurrentRoleIdx] = useState(0);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [hasVideoError, setHasVideoError] = useState(false);
+  const [isBlinking, setIsBlinking] = useState(false);
 
   const roles = [
     "AI & Computer Vision Enthusiast",
@@ -223,31 +228,57 @@ export default function Hero() {
             transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
             className="relative z-10 w-full max-w-[580px] lg:max-w-[660px] xl:max-w-[700px] flex flex-col items-center justify-end group"
           >
-            {/* Hero Video Media Wrapper */}
+            {/* Hero Media Wrapper (Video with Avatar Image Fallback) */}
             <div className="relative w-full flex items-end justify-center">
-              {/* MP4 Video Player in Hero Section */}
-              <motion.div 
-                className="w-full max-h-[620px] z-20 select-none group-hover:scale-[1.02] transition-transform duration-700 ease-out relative rounded-3xl overflow-hidden shadow-2xl border border-white/40 bg-black/10 backdrop-blur-md"
-                initial={{ opacity: 0, y: 120, scale: 0.94 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
-              >
-                <video 
-                  autoPlay 
-                  loop 
-                  muted 
-                  playsInline 
-                  controls
-                  className="w-full h-auto max-h-[620px] object-cover rounded-3xl"
+              {/* MP4 Video Player (If video exists) */}
+              {!hasVideoError && (
+                <motion.div 
+                  className={`w-full max-h-[620px] z-20 select-none group-hover:scale-[1.02] transition-transform duration-700 ease-out relative rounded-3xl overflow-hidden shadow-2xl border border-white/40 bg-black/10 backdrop-blur-md ${!isVideoLoaded ? 'hidden' : 'block'}`}
+                  initial={{ opacity: 0, y: 120, scale: 0.94 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
                 >
-                  <source src="/videos/hero.mp4" type="video/mp4" />
-                  <source src="/videos/video.mp4" type="video/mp4" />
-                  <source src="/videos/demo.mp4" type="video/mp4" />
-                  <source src="/videos/profile.mp4" type="video/mp4" />
-                  <source src="/videos/video1.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </motion.div>
+                  <video 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline 
+                    controls
+                    className="w-full h-auto max-h-[620px] object-cover rounded-3xl"
+                    onLoadedData={() => setIsVideoLoaded(true)}
+                    onError={() => setHasVideoError(true)}
+                  >
+                    <source src="/videos/hero.mp4" type="video/mp4" />
+                    <source src="/videos/video.mp4" type="video/mp4" />
+                    <source src="/videos/demo.mp4" type="video/mp4" />
+                    <source src="/videos/profile.mp4" type="video/mp4" />
+                    <source src="/videos/video1.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </motion.div>
+              )}
+
+              {/* 3D Character Avatar Fallback (Shown when video is not present/loading) */}
+              {(hasVideoError || !isVideoLoaded) && (
+                <>
+                  <motion.img 
+                    src={abhayProfile}
+                    alt="3D Avatar"
+                    className="w-full h-auto max-h-[620px] object-contain z-20 select-none group-hover:scale-[1.02] transition-transform duration-700 ease-out pointer-events-none relative"
+                    initial={{ opacity: 0, y: 120, scale: 0.94 }}
+                    animate={{ opacity: isBlinking ? 0 : 1, y: 0, scale: 1 }}
+                    transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
+                  />
+                  <motion.img 
+                    src={abhayProfileClosed}
+                    alt="3D Avatar Blinking"
+                    className="absolute inset-0 w-full h-auto max-h-[620px] object-contain z-20 select-none group-hover:scale-[1.02] transition-transform duration-700 ease-out pointer-events-none"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isBlinking ? 1 : 0, y: 0, scale: 1 }}
+                    transition={{ duration: 0.05, ease: "easeInOut" }}
+                  />
+                </>
+              )}
 
               {/* 3D Realistic Standing Platform & Ground Shadows */}
               <div className="absolute -bottom-5 sm:-bottom-7 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center pointer-events-none select-none">
@@ -256,13 +287,13 @@ export default function Hero() {
                 <div className="absolute -top-3 w-full flex justify-center space-x-14 sm:space-x-20 z-20">
                   {/* Left Foot Contact Shadow */}
                   <motion.div 
-                    animate={isImageEntered ? { scale: [1, 0.95, 1], opacity: [0.65, 0.55, 0.65] } : {}}
+                    animate={{ scale: [1, 0.95, 1], opacity: [0.65, 0.55, 0.65] }}
                     transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
                     className="w-20 sm:w-24 h-4 bg-neutral-950/70 rounded-[100%] blur-[2.5px]"
                   />
                   {/* Right Foot Contact Shadow */}
                   <motion.div 
-                    animate={isImageEntered ? { scale: [1, 0.95, 1], opacity: [0.65, 0.55, 0.65] } : {}}
+                    animate={{ scale: [1, 0.95, 1], opacity: [0.65, 0.55, 0.65] }}
                     transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
                     className="w-20 sm:w-24 h-4 bg-neutral-950/70 rounded-[100%] blur-[2.5px]"
                   />
@@ -270,7 +301,7 @@ export default function Hero() {
 
                 {/* 2. Ambient Occlusion Core Shadow */}
                 <motion.div 
-                  animate={isImageEntered ? { scale: [1, 0.97, 1], opacity: [0.5, 0.42, 0.5] } : {}}
+                  animate={{ scale: [1, 0.97, 1], opacity: [0.5, 0.42, 0.5] }}
                   transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
                   className="w-56 sm:w-72 h-7 bg-neutral-900/50 rounded-[100%] blur-md z-15 -mt-2"
                 />
